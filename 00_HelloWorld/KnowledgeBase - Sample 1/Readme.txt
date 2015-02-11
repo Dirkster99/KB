@@ -1,3 +1,6 @@
+
+1 Overview
+
 This is a Hello World! Type CefSharp sample that should work with
 NuGet CefSharp Version 37.0.0.
 
@@ -16,6 +19,15 @@ The following steps are necessary to get this to work
 5> Clean Solution
    Rebuild and Execute solution (should go without error)
 
-   > Wait a while until the page loads a https://github.com/Dirkster99
+   > Wait a while until the page loads from https://github.com/Dirkster99
    
-   page from the Internet...
+2 Using the Code
+
+This sample application realy is a bare bone minimal WPF CefSharp application.
+It consists of a:
+
+2.1 App.xaml file that configures the MainWindow.xaml to be loaded on start-up.
+
+2.2 MainWindow.xaml file that create a Chrome browser instance with the following XAML:
+    <cefSharp:ChromiumWebBrowser Grid.Row="0" Address="https://github.com/Dirkster99/KB" />
+    

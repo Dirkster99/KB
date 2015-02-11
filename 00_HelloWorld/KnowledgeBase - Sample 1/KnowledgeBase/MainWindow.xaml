@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="550" Width="625">
     <Grid>
-      <cefSharp:ChromiumWebBrowser Grid.Row="0" Address="https://github.com/Dirkster99" />
+		<cefSharp:ChromiumWebBrowser Grid.Row="0" Address="https://github.com/Dirkster99/KB" />
   </Grid>
 </Window>

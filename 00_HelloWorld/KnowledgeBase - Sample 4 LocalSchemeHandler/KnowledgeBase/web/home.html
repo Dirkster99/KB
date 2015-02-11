@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+<h1>Home Page</h1>
+<p>CEF and WPF rock!</p> <img src="images/icon.png"/>
+  
+<p>
+A <b>SchemeHandler</b> in Cef is a class that can handle requests going
+below each type of url. Consider the following urls:
+</p>
+  
+<ul>
+  <li>
+    <a href="local://web/index.html">local://web/index.html</a>
+  </li>
+  <li>custom://web/home.html</li>
+  <li>custom://web/index.html</li>
+  <li>KB://web/home.html</li>
+</ul>
+
+  <p>
+    The list above shows 4 urls from 3 schemes. Each scheme:
+    &quot;resource&quot;, &quot;custom&quot;, &quot;KB&quot;
+    can be implemented inside a specific <b>SchemeHandler</b> class
+    that implements the <b>ISchemeHandler</b> interface.
+    </p>
+      
+    <p>
+        And all 3 classes could be created by one factory class that
+        implements <b>ISchemeHandlerFactory</b> interface.
+      </p>
+
+</body>
+</html>
