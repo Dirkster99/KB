@@ -38,8 +38,8 @@
     </Grid>
 
 		<cefSharp:ChromiumWebBrowser Grid.Row="1"
-		                             Address="{Binding BrowserAddress}"
-																 Title="{Binding BrowserTitle, Mode=OneWay}"
+		                             Address="{Binding BrowserAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+																 Title="{Binding BrowserTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 																 Name="browser" />
 
 		<StatusBar Grid.Row="2" >
