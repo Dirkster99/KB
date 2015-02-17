@@ -76,6 +76,6 @@ The Output (TW) in VS Studio shows an exception in mscorelib
   DataStream was already closed...???
 
   This is a known issue which is already fixed, so you either need to get the current
-  sources and do a local build instead of getting the Nuget version of you have to
+  sources and do a local build instead of getting the Nuget version or you will have to
   update the Nuget version (once the fix was realeased to Nuget).
   https://github.com/cefsharp/CefSharp/commit/54b1520761da125b29322670504e98a2eb56c855
