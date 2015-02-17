@@ -27,6 +27,10 @@ Description: This is a sample SchemeHandler implementation that loads its conten
 
 Description: This is a sample SchemeHandler implementation that loads its content from a zip file stored in the local file system. It applies the CefSharp WPF control based on the Nuget libraries.
 
+### KnowledgeBase - Sample 6 LocalZipSchemeHandler
+
+Description: This is a sample SchemeHandler implementation that loads its content from MULTIPLE zip files stored in the local file system. It applies the CefSharp WPF control based on the Nuget libraries.
+
 ## References
 
 ### CefSharp on GitHub
