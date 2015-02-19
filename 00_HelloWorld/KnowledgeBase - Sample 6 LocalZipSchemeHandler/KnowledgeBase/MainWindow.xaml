@@ -20,8 +20,9 @@
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="Auto" />
-      </Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
 			<Button Content="Test URL 1"
 			        Command="{Binding TestUrlCommand}"
@@ -29,6 +30,10 @@
 
 			<Button Content="Test URL 2" Grid.Column="1"
 			        Command="{Binding TestUrl1Command}"
+							IsEnabled="{Binding ElementName=browser, Path=IsLoading, Converter={StaticResource InverseConv}}"/>
+
+      <Button Content="Test URL 3" Grid.Column="2"
+			        Command="{Binding TestUrl2Command}"
 							IsEnabled="{Binding ElementName=browser, Path=IsLoading, Converter={StaticResource InverseConv}}"/>
 
       <Button Content="Show Dev Tools" Grid.Column="3"

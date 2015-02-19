@@ -1,4 +1,4 @@
-namespace KnowledgeBase.ViewModel
+namespace KnowledgeBase.ViewModels
 {
 	using System.Reflection;
 	using System.Windows.Input;
@@ -6,9 +6,18 @@ namespace KnowledgeBase.ViewModel
 	using KnowledgeBase.ViewModels.Commands;
 
 	/// <summary>
+	/// Define an application specific interface for viewmodels that contain a
+	/// <seealso cref="IWpfWebBrowser"/> interface.
+	/// </summary>
+	public interface IWebBrowser
+	{
+		IWpfWebBrowser WebBrowser { get; }
+	}
+
+	/// <summary>
 	/// ApplicationViewModel manages the appplications state and its main objects.
 	/// </summary>
-	public class AppViewModel : Base.ViewModelBase
+	public class AppViewModel : Base.ViewModelBase, IWebBrowser
 	{
 		#region fields
 		// This string holds a URL to the web.zip file in the local file system
@@ -28,9 +37,11 @@ namespace KnowledgeBase.ViewModel
 		private ICommand mShowDevToolsCommand = null;
 
 		private string mBrowserAddress;
+		private IWpfWebBrowser mWebBrowser;
 		private string mAssemblyTitle;
 		private string mAssemblyPath;
 		private string mSampleDataPath;
+		private FindTextViewModel mFind;
 		#endregion fields
 
 		#region constructors
@@ -56,7 +67,7 @@ namespace KnowledgeBase.ViewModel
 			this.LocalZipUrl1 = string.Format(LocalZipUrl1, this.mSampleDataPath);
 			this.LocalZipUrl2 = string.Format(LocalZipUrl2, this.mSampleDataPath);
 
-			this.BrowserAddress = string.Format(TestResourceUrl, this.LocalZipUrl1);
+			this.BrowserAddress = string.Format(AppViewModel.TestCefResourceUrl, this.LocalZipUrl2);
 		}
 		#endregion constructors
 
@@ -83,6 +94,41 @@ namespace KnowledgeBase.ViewModel
 		}
 
 		/// <summary>
+		/// Gets/sets the web browser object bound from the ChromiumWebBrowser control.
+		/// </summary>
+		public IWpfWebBrowser WebBrowser
+		{
+			get
+			{
+				return this.mWebBrowser;
+			}
+
+			set
+			{
+				if (mWebBrowser != value)
+				{
+					this.mWebBrowser = value;
+					this.RaisePropertyChanged(() => this.WebBrowser);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Gets a property that exposes all viewmodel related functions
+		/// for finding and highlighting text.
+		/// </summary>
+		public FindTextViewModel Find
+		{
+			get
+			{
+				if (this.mFind == null)
+					this.mFind = new FindTextViewModel(this);
+
+				return this.mFind;
+			}
+		}
+
+		/// <summary>
 		/// Get "title" - "Uri" string of current address of web browser URI
 		/// for display in UI - to let the user know what his looking at.
 		/// </summary>
@@ -103,7 +149,7 @@ namespace KnowledgeBase.ViewModel
 			{
 				if (this.mTestUrlCommand == null)
 				{
-					this.mTestUrlCommand = new RelayCommand(() => 
+					this.mTestUrlCommand = new RelayCommand(() =>
 					{
 						// Setting this address sets the current address of the browser
 						// control via bound BrowserAddress property

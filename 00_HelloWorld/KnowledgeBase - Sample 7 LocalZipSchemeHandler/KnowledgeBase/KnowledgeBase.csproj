@@ -99,6 +99,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\TextChangedBehavior.cs" />
     <Compile Include="Models\Cef\LocalZipSchemeHandler.cs" />
     <Compile Include="Models\Cef\SchemeHandlerFactory.cs" />
     <Compile Include="Models\Zip\ZipExtractor.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Commands\RelayCommand.cs" />
     <Compile Include="ViewModels\Converters\InverseBooleanConverter.cs" />
+    <Compile Include="ViewModels\FindTextViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -1,0 +1,94 @@
+﻿<Window x:Class="KnowledgeBase.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
+        xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        xmlns:behav="clr-namespace:KnowledgeBase.Behaviors"
+
+				xmlns:conv="clr-namespace:KnowledgeBase.ViewModels.Converters"
+
+        Title="{Binding BrowserTitle, Mode=OneWay}" Height="750" Width="725">
+    <Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+    <Grid Grid.Row="0">
+      <Grid.Resources>
+        <conv:InverseBooleanConverter x:Key="InverseConv" />
+      </Grid.Resources>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <StackPanel Orientation="Horizontal" Grid.Row="0">
+        <!-- Implement Browser Back Button -->
+        <Button Content="Back" Command="{Binding Path=WebBrowser.BackCommand}" />
+        <Button Content="Select All" Command="{Binding Path=WebBrowser.SelectAllCommand}" />
+        <Button Content="Copy" Command="{Binding Path=WebBrowser.CopyCommand}" />
+
+        <Button Content="Zoom In" Command="{Binding Path=WebBrowser.ZoomInCommand}" />
+        <Button Content="Zoom Out" Command="{Binding Path=WebBrowser.ZoomOutCommand}" />
+        <Button Content="Reset Zoom" Command="{Binding Path=WebBrowser.ZoomResetCommand}" />
+
+        <Button Content="Print" Command="{Binding Path=WebBrowser.PrintCommand}" />
+
+        <Button Content="Stop" Command="{Binding Path=WebBrowser.StopCommand}"
+                IsEnabled="{Binding ElementName=browser, Path=IsLoading}" />
+
+        <Button Content="Reload" Command="{Binding Path=WebBrowser.ReloadCommand}"
+                IsEnabled="{Binding ElementName=browser, Path=IsLoading, Converter={StaticResource InverseConv}}"/>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal"  Grid.Row="1">
+        <Button Content="Test URL 1"
+			        Command="{Binding TestUrlCommand}"
+							IsEnabled="{Binding ElementName=browser, Path=IsLoading, Converter={StaticResource InverseConv}}"/>
+
+        <Button Content="Test URL 2"
+			        Command="{Binding TestUrl1Command}"
+							IsEnabled="{Binding ElementName=browser, Path=IsLoading, Converter={StaticResource InverseConv}}"/>
+
+        <Button Content="Test URL 3"
+			        Command="{Binding TestUrl2Command}"
+							IsEnabled="{Binding ElementName=browser, Path=IsLoading, Converter={StaticResource InverseConv}}"/>
+
+        <Button Content="Show Dev Tools"
+			        Command="{Binding ShowDevToolsCommand}"
+              CommandParameter="{Binding ElementName=browser}"
+							IsEnabled="{Binding ElementName=browser, Path=IsLoading, Converter={StaticResource InverseConv}}"/>
+      </StackPanel>
+
+      <GroupBox Header="Find Text" Grid.Row="2">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+
+          <Button Content="&lt;" Command="{Binding Find.FindPreviousCommand}" Grid.Column="0" />
+          <Button Content="&gt;" Command="{Binding Find.FindNextCommand}" Grid.Column="1" />
+          <TextBox Text="{Binding Find.Text2Find,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                   behav:TextChangedBehavior.TextChangedCommand="{Binding Find.FindTextChangedCommand}"
+                   MinWidth="200"
+                   Grid.Column="2" />
+        </Grid>
+      </GroupBox>
+    </Grid>
+
+    <cefSharp:ChromiumWebBrowser Grid.Row="1"
+		                             Address="{Binding BrowserAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 WebBrowser="{Binding WebBrowser, Mode=OneWayToSource}"
+																 Title="{Binding BrowserTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+																 Name="browser" />
+
+		<StatusBar Grid.Row="2" >
+			<TextBlock Name="Status" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+		</StatusBar>
+  </Grid>
+</Window>
