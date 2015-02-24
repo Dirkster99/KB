@@ -61,11 +61,7 @@
 				{
 					this.mFindPreviousCommand = new RelayCommand(() =>
 					{
-						if (string.IsNullOrEmpty(this.mText2Find) == false &&
-								this.mBrowser != null)
-						{
-							this.mBrowser.WebBrowser.Find(0, this.mText2Find, false, this.mMatchCase, true);
-						}
+						this.Find(false);
 					});
 				}
 
@@ -84,13 +80,7 @@
 				{
 					this.mFindNextCommand = new RelayCommand(() =>
 					{
-						if (string.IsNullOrEmpty(this.mText2Find) == false &&
-						    this.mBrowser != null)
-						{
-							int offset = 0;
-
-							this.mBrowser.WebBrowser.Find(offset, this.mText2Find, true, this.mMatchCase, true);
-						}
+							this.Find(true);
 					});
 				}
 
@@ -123,6 +113,24 @@
 
 							//// bool isEditByUser = (bool)param[2];
 
+							if (param[1] is KeyEventArgs)
+							{
+								switch ((param[1] as KeyEventArgs).Key)
+								{
+									case Key.Return:    // Highlight next occurrence in text if user hits enter key
+									case Key.Right:
+										this.Find(true);
+									break;
+
+									case Key.Left:    // Highlight previous occurrence in text if user hits CNTRL + key left
+									this.Find(false);
+									break;
+
+									default:
+										return;
+								}
+							}
+
 							ExtendFindString(param[3] as string);
 						}
 					});
@@ -134,6 +142,17 @@
 		#endregion properties
 
 		#region methods
+		private void Find(bool next)
+		{
+			if (this.mBrowser.WebBrowser != null)
+			{
+				if (!string.IsNullOrEmpty(this.Text2Find))
+				{
+					this.mBrowser.WebBrowser.Find(0, this.Text2Find, next, false, false);
+				}
+			}
+		}
+
 		/// <summary>
 		/// Extends the currently searched string to find/highlight the indicated string.
 		/// </summary>
@@ -147,7 +166,7 @@
 			this.Text2Find = findText;
 
 			// stop searching if we have no text to find
-			if (string.IsNullOrEmpty(this.mText2Find) == true)
+			if (string.IsNullOrEmpty(findText) == true)
 			{
 				this.StopSearch();
 				return;
@@ -156,8 +175,7 @@
 			if (this.mBrowser != null)
 			{
 				// Console.WriteLine("Finding Text: '{0}'", Text2Find);
-				this.mBrowser.WebBrowser.StopFinding(false);
-				this.mBrowser.WebBrowser.Find(0, this.mText2Find, false, this.mMatchCase, true);
+				this.Find(true);
 			}
 		}
 
@@ -169,7 +187,7 @@
 			this.Text2Find = string.Empty;
 
 			if (this.mBrowser != null)
-				this.mBrowser.WebBrowser.StopFinding(false);
+				this.mBrowser.WebBrowser.StopFinding(true);
 		}
 		#endregion methods
 	}

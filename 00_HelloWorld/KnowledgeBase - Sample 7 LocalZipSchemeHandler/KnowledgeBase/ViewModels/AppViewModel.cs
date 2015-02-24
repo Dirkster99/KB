@@ -67,7 +67,7 @@ namespace KnowledgeBase.ViewModels
 			this.LocalZipUrl1 = string.Format(LocalZipUrl1, this.mSampleDataPath);
 			this.LocalZipUrl2 = string.Format(LocalZipUrl2, this.mSampleDataPath);
 
-			this.BrowserAddress = string.Format(AppViewModel.TestCefResourceUrl, this.LocalZipUrl2);
+			this.BrowserAddress = string.Format(TestCefResourceUrl, this.LocalZipUrl2);
 		}
 		#endregion constructors
 

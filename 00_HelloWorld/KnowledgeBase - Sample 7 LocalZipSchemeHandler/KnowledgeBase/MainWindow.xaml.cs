@@ -4,6 +4,7 @@
 	using System.Windows;
 	using System.Windows.Threading;
 	using CefSharp;
+	using KnowledgeBase.Models.Cef;
 	using KnowledgeBase.ViewModels;
 
 	/// <summary>
@@ -23,6 +24,8 @@
 
 			browser.StatusMessage += browser_StatusMessage;
 			browser.NavStateChanged += browser_NavStateChanged;
+			
+			browser.DownloadHandler = new DownloadHandler();
 		}
 
 		/// <summary>

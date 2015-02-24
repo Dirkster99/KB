@@ -27,6 +27,11 @@
 
 		private static void ExecuteTextChangedCommand(TextBox sender, TextChangedEventArgs e)
 		{
+			e.Handled = SendTextBoxChangedEvent(sender, e);
+		}
+
+		private static bool SendTextBoxChangedEvent(TextBox sender, object e)
+		{
 			var command = (ICommand)sender.GetValue(TextChangedCommandProperty);
 			var arguments = new object[]
 			                {
@@ -41,16 +46,16 @@
 			{
 				// Execute the routed command
 				(command as RoutedCommand).Execute(arguments, sender);
-				e.Handled = true;
+				return true;
 			}
 			else
 			{
 				// Execute the Command as bound delegate
 				command.Execute(arguments);
-				e.Handled = true;
+				return true;
 			}
 
-			command.Execute(arguments);
+			//// return false;
 		}
 
 		private static bool GetUserInput(DependencyObject target)
@@ -82,13 +87,32 @@
 		private static void TextBoxOnPreviewKeyDown(object sender, KeyEventArgs e)
 		{
 			var textBox = (TextBox)sender;
+
+			if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+			{
+				switch (e.Key)
+				{
+					case Key.Left:
+					case Key.Right:
+						SetUserInput(textBox, true);
+						SendTextBoxChangedEvent(sender as TextBox, e);
+					break;
+
+					default:
+						return;
+				}
+
+				return;
+			}
+
 			switch (e.Key)
 			{
 				case Key.Return:
-					if (textBox.AcceptsReturn)
-					{
+					////if (textBox.AcceptsReturn)
+					////{
 						SetUserInput(textBox, true);
-					}
+						SendTextBoxChangedEvent(sender as TextBox, e);
+						////}
 					break;
 
 				case Key.Delete:

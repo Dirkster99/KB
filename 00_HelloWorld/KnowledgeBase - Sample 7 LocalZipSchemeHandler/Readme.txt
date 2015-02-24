@@ -25,12 +25,14 @@ The following steps are necessary to get this to work
 6> This sample documents the usage of the browser object bound from MainWindow into:
    KnowledgeBase.ViewModels.AppViewModel.cs
 
-   Supported CefSharp Features:
+   Supported Features:
    - Go back in browser history
    - Select All, Copy
    - Zoom In/Zoom Out/Reset Zoom
    - Stop/Reload
-   - Find Next, Find Previous, highlight text based on a search string
+
+   - Find Highlight text as you type
+   - Download files (eg.: sample projects) stored inside a zip file
 
 1.1 LocalZipSchemeHandler Sample 7
 

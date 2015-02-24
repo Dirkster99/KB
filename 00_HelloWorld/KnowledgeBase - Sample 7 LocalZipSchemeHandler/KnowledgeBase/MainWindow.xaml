@@ -76,7 +76,8 @@
           <TextBox Text="{Binding Find.Text2Find,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                    behav:TextChangedBehavior.TextChangedCommand="{Binding Find.FindTextChangedCommand}"
                    MinWidth="200"
-                   Grid.Column="2" />
+                   Grid.Column="2">
+          </TextBox>
         </Grid>
       </GroupBox>
     </Grid>
