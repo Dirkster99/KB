@@ -43,6 +43,10 @@ Description: This is a sample SchemeHandler implementation that loads its conten
 - Find Highlight text as you type
 - Download files (eg.: sample projects) stored inside a zip file
 
+## KnowledgeBase - Sample 8 ExtractText
+
+Description: This sample illustrates how the OffScreenBrowser can be used to extract text from page that is available at a given URL.
+
 ## References
 
 ### CefSharp on GitHub
